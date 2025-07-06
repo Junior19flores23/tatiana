@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Te amo, Tatiana</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    .mensaje {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      text-align: center;
+      font-size: 3em;
+      color: #ff69b4;
+      text-shadow: 2px 2px 10px #ff1493;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .corazon {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: caer 5s linear infinite;
+      z-index: 0;
+    }
+
+    .corazon::before,
+    .corazon::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .corazon::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .corazon::after {
+      left: -10px;
+      top: 0;
+    }
+
+    .teamo {
+      position: absolute;
+      color: #ff69b4;
+      font-size: 20px;
+      font-weight: bold;
+      animation: caer 6s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes caer {
+      0% {
+        top: -10%;
+        opacity: 1;
+      }
+      100% {
+        top: 110%;
+        opacity: 0;
+      }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mensaje">Te amo, Tatiana ❤️</div>
+
+  <audio id="audio" autoplay loop>
+    <source src="cancion.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
+
+  <script>
+    function crearCorazon() {
+      const corazon = document.createElement('div');
+      corazon.classList.add('corazon');
+      corazon.style.left = Math.random() * 100 + 'vw';
+      corazon.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      document.body.appendChild(corazon);
+      setTimeout(() => corazon.remove(), 5000);
+    }
+
+    function crearTeAmo() {
+      const texto = document.createElement('div');
+      texto.classList.add('teamo');
+      texto.textContent = "Te amo, Tatiana";
+      texto.style.left = Math.random() * 100 + 'vw';
+      texto.style.fontSize = (Math.random() * 10 + 16) + 'px';
+      texto.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      document.body.appendChild(texto);
+      setTimeout(() => texto.remove(), 6000);
+    }
+
+    setInterval(crearCorazon, 100);
+    setInterval(crearTeAmo, 300);
+
+    const audio = document.getElementById('audio');
+    document.body.addEventListener('click', () => {
+      audio.play().catch(e => console.log('Error al reproducir audio:', e));
+    }, { once: true });
+  </script>
+
+</body>
+</html>
